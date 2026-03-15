@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #2d89ef;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #1b5fbf;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #f0f0f0;
+}
+button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    background-color: #b02a37;
+}
+
+.mensagem {
+    display: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: white;
+}
+
+.mensagem-sucesso {
+    background-color: #198754;
+}
+
+.mensagem-erro {
+    background-color: #dc3545;
+}
