@@ -9,7 +9,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/pacientes', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM pacientes');
+        const result = await pool.query(
+            'SELECT * FROM pacientes WHERE ativo = true ORDER BY id'
+        );
         res.json(result.rows);
     } catch (error) {
         console.error(error);
@@ -43,7 +45,7 @@ app.delete('/pacientes/:id', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'DELETE FROM pacientes WHERE id = $1 RETURNING *',
+            'UPDATE pacientes SET ativo = false WHERE id = $1 RETURNING *',
             [id]
         );
 
