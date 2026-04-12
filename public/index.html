@@ -1,50 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<title>ClinicSys</title>
-	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>ClinicSys</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-	<nav class="menu">
-		<a href="/index.html" class="ativo">Pacientes</a>
-    	<a href="/medicos.html">Médicos</a>
-	</nav>
 
-	<div class="container">
+<div class="container">
+    <h1>ClinicSys</h1>
+    <p style="text-align:center;">Sistema de Gerenciamento de Clínica</p>
 
-	<h1>Sistema de Pacientes</h1>
-	<div id="mensagem" class="mensagem"></div>
-
-		<form id="formPaciente">
-			<input type="text" id="nome" placeholder="Nome" required>
-			<input type="email" id="email" placeholder="Email">
-			<input type="text" id="telefone" placeholder="Telefone" maxlength="11" inputmode="numeric">
-			<button type="submit">Cadastrar</button>
-		</form>
-
-	<h2>Pacientes cadastrados</h2>
-
-		<table>
-			<thead>
-				<tr>
-				<th>ID</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Telefone</th>
-				<th>Ações</th>
-				</tr>
-			</thead>
-
-			<tbody id="listaPacientes"></tbody>
-
-		</table>
-
-	</div>
-
-	<script src="script.js"></script>
+    <div class="menu">
+        <a href="pacientes.html" class="card">👤 Pacientes</a>
+        <a href="medicos.html" class="card">👨‍⚕️ Médicos</a>
+    </div>
+</div>
 
 </body>
-
 </html>

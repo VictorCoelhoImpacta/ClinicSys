@@ -5,9 +5,6 @@ const pool = require('./config/database');
 const app = express();
 
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
-});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/pacientes', async (req, res) => {
