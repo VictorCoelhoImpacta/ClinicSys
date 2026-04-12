@@ -20,8 +20,9 @@ h1 {
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin: 5px 0 10px 0;
+    box-sizing: border-box; /* 👈 ESSA LINHA RESOLVE */
 }
 
 button {
@@ -87,3 +88,49 @@ button {
 .mensagem-erro {
     background-color: #dc3545;
 }
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    text-decoration: none;
+    background-color: #2d89ef;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 150px;
+    text-align: center;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    background-color: #1b5fbf;
+    transform: scale(1.05);
+}
+
+.menu {
+    background-color: #2d89ef;
+    padding: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.menu a.ativo {
+    text-decoration: underline;
+}
+

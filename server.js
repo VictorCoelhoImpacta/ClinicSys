@@ -5,6 +5,9 @@ const pool = require('./config/database');
 const app = express();
 
 app.use(express.json());
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/pacientes', async (req, res) => {
@@ -110,3 +113,63 @@ app.get('/pacientes/:id', async (req, res) => {
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000');
 });
+
+app.post('/medicos', async (req, res) => {
+    const { nome, especialidade, crm, telefone } = req.body;
+
+    try {
+        const result = await pool.query(
+            'INSERT INTO medicos (nome, especialidade, crm, telefone) VALUES ($1, $2, $3, $4) RETURNING *',
+            [nome, especialidade, crm, telefone]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao cadastrar médico');
+    }
+});
+
+app.get('/medicos', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM medicos WHERE ativo = true');
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao buscar médicos');
+    }
+});
+
+app.put('/medicos/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nome, especialidade, crm, telefone } = req.body;
+
+    try {
+        const result = await pool.query(
+            'UPDATE medicos SET nome=$1, especialidade=$2, crm=$3, telefone=$4 WHERE id=$5 RETURNING *',
+            [nome, especialidade, crm, telefone, id]
+        );
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao atualizar médico');
+    }
+});
+
+app.delete('/medicos/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await pool.query(
+            'UPDATE medicos SET ativo = false WHERE id = $1',
+            [id]
+        );
+
+        res.sendStatus(204);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao desativar médico');
+    }
+});
+
