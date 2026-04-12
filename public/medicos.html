@@ -22,9 +22,22 @@
     <form id="formMedico">
         <input type="text" id="nome" placeholder="Nome" required>
         <input type="text" id="especialidade" placeholder="Especialidade">
-        <input type="text" id="crm" placeholder="CRM">
-        <input type="text" id="telefone" placeholder="Telefone">
-        <button type="submit">Cadastrar</button>
+        <select id="tipoRegistro">
+            <option value="CRM">CRM</option>
+            <option value="COREN">COREN</option>
+            <option value="CRP">CRP</option>
+            <option value="CRO">CRO</option>
+            <option value="CRF">CRF</option>
+            <option value="CREFITO">CREFITO</option>
+            <option value="CRN">CRN</option>
+            <option value="CRBM">CRBM</option>
+            <option value="CREFONO">CREFONO</option>
+            <option value="CREF">CREF</option>
+            <option value="CRESS">CRESS</option>
+        </select>
+        <input type="text" id="registro" placeholder="Número do registro">
+        <input type="text" id="telefone" placeholder="Telefone" maxlength="11" inputmode="numeric">
+            <button type="submit">Cadastrar</button>
     </form>
 
     <h2>Médicos cadastrados</h2>

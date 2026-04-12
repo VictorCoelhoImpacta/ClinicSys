@@ -38,7 +38,9 @@ form.addEventListener('submit', async (e) => {
 
     const nome = document.getElementById('nome').value;
     const especialidade = document.getElementById('especialidade').value;
-    const crm = document.getElementById('crm').value;
+    const tipoRegistro = document.getElementById('tipoRegistro').value;
+    const registro = document.getElementById('registro').value;
+    const crm = `${tipoRegistro} ${registro}`;
     const telefone = document.getElementById('telefone').value;
 
     if (medicoEditando) {
@@ -72,7 +74,9 @@ function editar(id) {
 
     document.getElementById('nome').value = medico.nome;
     document.getElementById('especialidade').value = medico.especialidade;
-    document.getElementById('crm').value = medico.crm;
+    const partes = medico.crm.split(' ');
+    document.getElementById('tipoRegistro').value = partes[0] || '';
+    document.getElementById('registro').value = partes[1] || '';
     document.getElementById('telefone').value = medico.telefone;
 
     medicoEditando = id;
