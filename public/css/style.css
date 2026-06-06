@@ -212,3 +212,12 @@ select {
 
     opacity: 0.8;
 }
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 80px;
+}

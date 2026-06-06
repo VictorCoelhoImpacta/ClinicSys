@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda - ClinicSys</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/home.html">Home</a>
+            <a href="/cad.html">Cadastros</a>
+            <a href="/agenda.html" class="ativo">Agenda</a>
+        </div>
+
+        <a href="/logout" class="btn-logout">Sair</a>
+    </div>
+
+    <div class="container">
+
+        <h1>Agenda de Consultas</h1>
+
+        <div id="mensagem" class="mensagem"></div>
+
+        <form id="formConsulta">
+
+            <select id="paciente_id" required>
+                <option value="">Selecione o paciente</option>
+            </select>
+
+            <select id="medico_id" required>
+                <option value="">Selecione o médico</option>
+            </select>
+
+            <input type="date" id="data_consulta" required>
+
+            <input type="time" id="hora_consulta" required>
+
+            <textarea id="observacao" placeholder="Observação"></textarea>
+
+            <select id="status">
+                <option value="agendada">Agendada</option>
+                <option value="realizada">Realizada</option>
+                <option value="cancelada">Cancelada</option>
+            </select>
+
+            <button type="submit">Cadastrar</button>
+
+        </form>
+
+        <h2>Consultas agendadas</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="listaConsultas"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<script src="/js/agenda.js"></script>
+
+</body>
+
+</html>

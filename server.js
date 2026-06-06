@@ -352,6 +352,116 @@ app.delete('/usuarios/:id', async (req, res) => {
     }
 });
 
+app.get('/consultas', verificarLogin, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                consultas.id,
+                consultas.paciente_id,
+                pacientes.nome AS paciente_nome,
+                consultas.medico_id,
+                medicos.nome AS medico_nome,
+                consultas.data_consulta,
+                consultas.hora_consulta,
+                consultas.observacao,
+                consultas.status
+            FROM consultas
+            JOIN pacientes ON consultas.paciente_id = pacientes.id
+            JOIN medicos ON consultas.medico_id = medicos.id
+            WHERE consultas.ativo = true
+            ORDER BY consultas.data_consulta, consultas.hora_consulta
+        `);
+
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao buscar consultas');
+    }
+});
+
+app.post('/consultas', verificarLogin, async (req, res) => {
+    const {
+        paciente_id,
+        medico_id,
+        data_consulta,
+        hora_consulta,
+        observacao,
+        status
+    } = req.body;
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO consultas 
+            (paciente_id, medico_id, data_consulta, hora_consulta, observacao, status)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *`,
+            [paciente_id, medico_id, data_consulta, hora_consulta, observacao, status]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao cadastrar consulta');
+    }
+});
+
+app.put('/consultas/:id', verificarLogin, async (req, res) => {
+    const { id } = req.params;
+
+    const {
+        paciente_id,
+        medico_id,
+        data_consulta,
+        hora_consulta,
+        observacao,
+        status
+    } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE consultas
+            SET paciente_id = $1,
+                medico_id = $2,
+                data_consulta = $3,
+                hora_consulta = $4,
+                observacao = $5,
+                status = $6
+            WHERE id = $7
+            RETURNING *`,
+            [paciente_id, medico_id, data_consulta, hora_consulta, observacao, status, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).send('Consulta não encontrada');
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao atualizar consulta');
+    }
+});
+
+app.delete('/consultas/:id', verificarLogin, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await pool.query(
+            'UPDATE consultas SET ativo = false WHERE id = $1 RETURNING *',
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).send('Consulta não encontrada');
+        }
+
+        res.json({ message: 'Consulta desativada com sucesso' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao desativar consulta');
+    }
+});
+
 app.get('/logout', (req, res) => {
 
     req.session.destroy(() => {
@@ -359,6 +469,12 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
+app.get(
+    '/agenda.html',
+    verificarLogin,
+    carregarPagina('agenda.html')
+);
 
 app.get(
     '/home.html',
